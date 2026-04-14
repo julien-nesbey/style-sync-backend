@@ -7,6 +7,7 @@ from sqlalchemy import create_engine, Column, String, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import StaticPool
+from typing import Generator
 import os
 
 # Create SQLite database
@@ -54,7 +55,7 @@ class ClosetItem(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
-def get_db() -> Session:
+def get_db() -> Generator[Session, None, None]:
     """Get database session."""
     db = SessionLocal()
     try:
